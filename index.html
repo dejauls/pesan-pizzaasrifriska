@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#C2501A">
+  <meta name="description" content="Pesan Pizza Asrifriska dengan mudah. Pilih jenis pizza, ukuran, topping, lalu kirim pesanan melalui WhatsApp.">
+  <title>Pizza Asrifriska — Pesan Online</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          brand: {
+            50:  '#FEF1E8',
+            100: '#FADCC8',
+            200: '#F2B48D',
+            500: '#D4561A',  
+            600: '#BF4F17',  
+            700: '#A83A0C', 
+            800: '#7A2A0A'  
+          },
+          maroon: '#7A0F12', 
+          pizza: { green: '#047857', dark: '#064e3b', cream: '#fffaf0', line: '#e7e5e4' }
+        },
+        boxShadow: {
+          soft: '0 12px 35px rgba(120, 30, 10, .18)'
+        }
+      }}
+    };
+  </script>
+  <style>
+    [hidden] { display: none !important; }
+    body {
+      -webkit-tap-highlight-color: transparent;
+      background: linear-gradient(180deg, #FDEBDF 0%, #FEF4EC 40%, #FFFFFF 100%);
+      background-attachment: fixed;
+    }
+    .modal-scroll { max-height: min(88vh, 850px); overflow-y: auto; }
+  </style>
+</head>
+
+<body class="min-h-screen text-stone-900 antialiased">
+
+  <header class="sticky top-0 z-30 border-b border-stone-200/70 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+      <a href="#menu" class="flex items-center gap-3" aria-label="Pizza Asrifriska, ke menu">
+        <img src="assets/logo.jpg" alt="Logo Pizza Asrifriska" class="h-11 w-11 rounded-2xl object-cover shadow-sm">
+        <span><b class="block text-base font-extrabold tracking-tight text-stone-900 sm:text-lg">Pizza Asrifriska</b><small class="block text-xs text-stone-600">Menu & pemesanan</small></span>
+      </a>
+      <a href="#cara-pesan" class="rounded-full border-2 border-brand-600 px-4 py-2 text-sm font-semibold text-brand-600 hover:bg-brand-50">Cara pesan</a>
+    </div>
+  </header>
+
+  <section class="mx-auto max-w-5xl px-4 sm:px-6">
+    <div class="relative isolate mt-5 overflow-hidden rounded-3xl bg-gradient-to-b from-[#D9541A] to-[#A01F10] px-5 py-7 text-white shadow-soft sm:mt-8 sm:px-9 sm:py-10">
+
+      <img
+        src="assets/bg-pizza-banner-web.png"
+        alt=""
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-20 h-full w-full select-none object-cover object-right">
+
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#C8431A] via-[#C8431A]/80 to-transparent sm:via-[#C8431A]/60"></div>
+
+      <div class="relative max-w-xl">
+        <span class="inline-flex rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[.18em] text-white/90">Freshly made · Homemade pizza</span>
+        <h1 class="mt-4 text-3xl font-black leading-tight sm:text-5xl">Lagi pingin Pizza ?</h1>
+        <p class="mt-3 max-w-lg text-sm leading-6 text-white md:hidden sm:text-base">Pilih jenis pizza, tentukan <br>ukuran dan topping favoritmu</p>
+        <p class="mt-3 hidden max-w-lg text-sm leading-6 text-white md:block sm:text-base">Pilih jenis pizza, tentukan ukuran dan topping favoritmu</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 sm:px-6">
+  <div class="mt-5 flex items-center justify-center gap-5 rounded-full border border-brand-100 bg-white px-4 py-3.5 text-[15px] font-semibold text-brand-600 shadow-sm">
+
+    <span class="flex items-center gap-2">
+      <svg class="h-6 w-6 shrink-0" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(1,1)" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.3,39c0,5-3.9,9-8.6,9s-8.6-4-8.6-9"/>
+          <path d="M59.5,37.6c0.3,0.8,0.5,1.7,0.5,2.7c0,4.3-3.6,7.8-7.9,7.8c-4.4,0-8.2-3.4-8.2-8.4"/>
+          <path d="M47.6,28.5c1.3-0.6,2.8-1,4.3-1c5.6,0,10.1,4.6,10.1,10.3c-6.6,0.2-17.2,3.3-21.7-0.5"/>
+          <path d="M11.7,19.9c0,0-11.2,2.3-11.7,17.3c-0.1,1.1,1.2,1.9,7.9,1.9h24.8c0,0,11.4-0.3,16.1-13.3c6.1-4-1.8-15.5-1.8-15.5s2,0.5,2.8-1.8s3.1-8.3-1.3-8.4c-3-0.1-11,2.9-11,2.9s-6.3,0.9-4.1,3c2.3,2.2,2.8-0.1,3.9,0c1.1,0.1,5.3,2.1,5.7,11s-5.5,15.6-18.1,13.6c-2.9-0.9-3.2-8-0.3-10.7c0,0,1.9-1.8,2.2-3c0.3-1.3-0.5-1.6-2-1.5c-1.5,0.1-11.2-0.8-14.8-1.5c-3.7-0.8-4.3,2.9-3.9,4.2C6.4,19.4,7.6,20.6,11.7,19.9L11.7,19.9z"/>
+          <path d="M6.1,29.1h7.7"/>
+          <path d="M5.1,32h9.8"/>
+          <path d="M6.1,34.9h7.8"/>
+        </g>
+      </svg>
+      Pesan Antar
+    </span>
+
+    <span class="text-brand-200" aria-hidden="true">|</span>
+
+    <span class="flex items-center gap-2">
+      <svg class="h-6 w-6 shrink-0" viewBox="0 -24.48 122.88 122.88" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M97.31,36.95c0,9.92-3.49,18.39-10.48,25.38c-7,7-15.46,10.5-25.38,10.5c-9.88,0-18.34-3.49-25.35-10.5 c-7-6.99-10.52-15.46-10.52-25.38c0-9.89,3.51-18.32,10.52-25.34c7.03-7,15.48-10.52,25.35-10.52c9.92,0,18.38,3.51,25.38,10.52 C93.81,18.63,97.31,27.06,97.31,36.95L97.31,36.95L97.31,36.95L97.31,36.95z M16.37,30.34c3.15-2.15,4.73-4.96,4.46-11.39V2.42 c-0.03-2.31-4.22-2.59-4.43,0l-0.16,13.41c-0.01,2.51-3.78,2.59-3.77,0l0.16-13.87c-0.05-2.48-4.05-2.73-4.1,0 c0,3.85-0.16,10.02-0.16,13.87c0.2,2.43-3.3,2.75-3.21,0L5.32,2.05C5.23,0.18,3.17-0.49,1.77,0.39C0.28,1.34,0.58,3.25,0.52,4.86 L0,20.68c0.08,4.6,1.29,8.34,4.89,9.93c0.55,0.24,1.31,0.43,2.19,0.56L5.84,69.75c-0.07,2.29,1.8,4.16,3.99,4.16h0.5 c2.47,0,4.56-2.11,4.49-4.68l-1.09-38.07C14.88,30.98,15.83,30.71,16.37,30.34L16.37,30.34z M106.74,68.59l-0.06-34.65 c-12.15-7.02-8.28-34.07,3.88-33.92c14.78,0.17,16.53,30.48,3.82,33.81l0.94,34.9C115.5,75.33,106.75,75.94,106.74,68.59 L106.74,68.59z M82.33,36.92c0,5.78-2.03,10.71-6.12,14.8c-4.08,4.07-9.01,6.12-14.79,6.12c-5.74,0-10.67-2.05-14.75-6.12 c-4.08-4.09-6.12-9.02-6.12-14.8c0-5.74,2.04-10.67,6.12-14.74c4.09-4.07,9.01-6.12,14.75-6.12C73.03,16.07,82.33,25.3,82.33,36.92 L82.33,36.92L82.33,36.92z M87.22,36.92c0-7.1-2.5-13.17-7.53-18.2s-11.12-7.53-18.27-7.53c-7.13,0-13.2,2.5-18.2,7.53 c-5.03,5.03-7.56,11.1-7.56,18.2c0,7.12,2.53,13.19,7.56,18.24c5,5.04,11.07,7.57,18.2,7.57c7.14,0,13.23-2.53,18.27-7.57 C84.71,50.1,87.22,44.03,87.22,36.92L87.22,36.92L87.22,36.92L87.22,36.92z"/>
+      </svg>
+      Dine In
+    </span>
+
+  </div>
+</section>
+
+  <section class="mx-auto max-w-5xl">
+    <div id="menu" class="pt-8 sm:pt-10">
+      <p class=" font-bold uppercase tracking-[.2em] text-brand-600 pl-4">Menu kami</p>
+      
+
+      <div class="mt-5 grid grid-cols-2 gap-3 px-4 sm:gap-5 sm:px-6">
+
+        <div 
+          class="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 text-left shadow-soft ring-1 ring-brand-100 transition active:scale-[.98] sm:aspect-[16/9] sm:rounded-3xl">
+          <img src="assets/pizza-gulung.jpg" alt="Pizza Gulung" loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
+          <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></span>
+          <span class="absolute inset-x-0 bottom-0 p-3 sm:p-5">
+            <b class="block text-base font-extrabold leading-tight text-white sm:text-2xl">Pizza Gulung</b>
+          </span>
+        </div>
+
+        <div 
+          class="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 text-left shadow-soft ring-1 ring-brand-100 transition active:scale-[.98] sm:aspect-[16/9] sm:rounded-3xl">
+          <img src="assets/pizza-bulat-standar-p.png" alt="Pizza Bulat" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
+          <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></span>
+          <span class="absolute inset-x-0 bottom-0 p-3 sm:p-5">
+            <b class="block text-base font-extrabold leading-tight text-white sm:text-2xl">Pizza Bulat</b>
+          </span>
+        </div>
+        <div 
+          class="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 text-left shadow-soft ring-1 ring-brand-100 transition active:scale-[.98] sm:aspect-[16/9] sm:rounded-3xl">
+          <img src="assets/mix-varian-pizza-gulung.jpg" alt="Pizza Gulung" loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
+          <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></span>
+          <span class="absolute inset-x-0 bottom-0 p-3 sm:p-5">
+            <b class="block text-base font-extrabold leading-tight text-white sm:text-2xl">Pizza Gulung <br>Mix Topping</b>
+          </span>
+        </div>
+        <div 
+          class="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 text-left shadow-soft ring-1 ring-brand-100 transition active:scale-[.98] sm:aspect-[16/9] sm:rounded-3xl">
+          <img src="assets/pizbul-sosis-pinggir.jpg" alt="Pizza Gulung" loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
+          <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></span>
+          <span class="absolute inset-x-0 bottom-0 p-3 sm:p-5">
+            <b class="block text-base font-extrabold leading-tight text-white sm:text-2xl">Pizza Bulat <br>Sosis Roll</b>
+          </span>
+        </div>
+      </div>
+      <div class="flex items-end justify-between gap-3 px-4 sm:px-6 mt-8">
+        <div>
+          
+          <h2 class="mt-1 text-2xl font-extrabold text-stone-900 sm:text-3xl">Pilih jenis pizza</h2>
+        </div>
+        <span id="product-count" class="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 shadow-sm">2 menu</span>
+      </div>
+      <div class="mt-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:px-6" aria-label="Filter menu">
+        <button type="button" class="rounded-full bg-brand-700 px-4 py-2 text-sm font-bold text-white" data-filter="all">Semua</button>
+        <button type="button" class="rounded-full border border-brand-600/70 bg-white px-4 py-2 text-sm font-semibold text-brand-800 hover:border-brand-600" data-filter="gulung">Pizza Gulung</button>
+        <button type="button" class="rounded-full border border-brand-600/70 bg-white px-4 py-2 text-sm font-semibold text-brand-800 hover:border-brand-600" data-filter="bulat">Pizza Bulat</button>
+      </div>
+
+      <div id="product-list" class="mt-4 flex flex-col gap-6" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="cara-pesan" class="mx-auto max-w-5xl px-4 pb-20 sm:px-6">
+    <div class="mt-8 rounded-2xl border border-brand-100 bg-brand-50 p-5 sm:mt-10 sm:p-6">
+      <h2 class="text-center font-extrabold text-maroon">Pesan gampang, tinggal pilih!</h2>
+      <p class="mt-2 text-sm leading-6 text-brand-800">1. Pilih pizza</p>
+      <p class="mt-2 text-sm leading-6 text-brand-800">2. Tentukan ukuran dan topping</p>
+      <p class="mt-2 text-sm leading-6 text-brand-800">3. Periksa keranjang</p>
+      <p class="mt-2 text-sm leading-6 text-brand-800">4. Konfirmasi pesanan</p>
+      <p class="mt-2 text-sm leading-6 text-brand-800">5. Isi detail dan kirim</p>
+    </div>
+  </section>
+
+  <div id="cart-dock" hidden class="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 p-3 shadow-[0_-10px_35px_rgba(15,23,42,.10)] backdrop-blur sm:px-6">
+    <div class="mx-auto max-w-5xl">
+      <button id="open-cart" type="button" class="flex w-full items-center justify-between gap-3 rounded-full bg-brand-500 px-5 py-3.5 text-left text-white shadow-lg transition hover:bg-brand-700 sm:px-7">
+        <span class="flex min-w-0 items-center gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/15 text-xl">🛒</span><span class="min-w-0"><small id="dock-count" class="block text-xs text-white/80">Keranjang · 0 item</small><b id="dock-total" class="block truncate text-lg">Rp0</b></span></span>
+        <span class="shrink-0 text-sm font-bold">Lihat keranjang ›</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="variant-overlay" data-overlay hidden class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-[2px] sm:items-center sm:p-4">
+    <section role="dialog" aria-modal="true" aria-labelledby="variant-title" class="modal-scroll relative w-full max-w-xl rounded-t-3xl bg-white p-5 pb-0 shadow-2xl sm:rounded-3xl sm:p-7 sm:pb-0">
+      <button type="button" data-close="variant-overlay" aria-label="Tutup" class="absolute right-8 top-8 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-2xl text-stone-700 shadow-md backdrop-blur hover:bg-white sm:right-10 sm:top-10">×</button>
+
+        <div class="overflow-hidden rounded-2xl bg-brand-50 shadow-sm">
+          <img id="variant-image" src="" alt="" class="aspect-[4/3] w-full object-cover">
+        </div>
+
+        <div class="mt-4">
+          <span id="variant-category" class="text-[10px] font-bold uppercase tracking-[.15em] text-brand-600"></span>
+          <h2 id="variant-title" class="mt-1 text-xl font-extrabold text-stone-900">Pilih pizza</h2>
+          <p id="variant-description" class="mt-1 text-sm text-stone-500"></p>
+        </div>
+
+      <form id="variant-form" class="mt-6">
+        <h3 class="mt-6 border-t border-stone-100 pt-5 text-2xl font-extrabold tracking-tight text-stone-900">Pilih topping</h3>
+        <div id="topping-options" class="mt-4 flex flex-wrap gap-2.5 pb-4"></div>
+
+        <label id="lettering-option" class="relative mt-2 flex cursor-pointer items-start gap-4 border-t border-stone-100 py-4">
+          <input id="lettering" type="checkbox" class="peer sr-only">
+          <span class="min-w-0 flex-1 pr-14">
+            <b class="block text-lg font-normal text-stone-800">Tambahkan cetak huruf</b>
+            <small class="mt-1 block text-sm text-stone-500">Biaya tambahan Rp10.000 per pesanan produk</small>
+          </span>
+          <span class="absolute bottom-4 right-0 grid h-10 w-10 place-items-center rounded-full bg-brand-500 text-2xl text-white shadow peer-checked:hidden">+</span>
+          <span class="absolute bottom-4 right-0 hidden h-10 w-10 place-items-center rounded-full border-2 border-brand-500 bg-white text-lg font-bold text-brand-500 peer-checked:grid">✓</span>
+        </label>
+
+        <div class="sticky bottom-0 -mx-5 mt-2 border-t border-stone-100 bg-white px-5 pb-4 pt-3 sm:-mx-7 sm:px-7">
+          <div class="mb-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <button id="variant-minus" type="button" class="grid h-9 w-9 place-items-center rounded-full border border-stone-300 bg-white text-xl font-semibold">−</button>
+              <output id="variant-qty" class="min-w-4 text-center text-lg font-bold">1</output>
+              <button id="variant-plus" type="button" class="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-xl font-semibold text-white">+</button>
+            </div>
+            <div class="text-right">
+              <span class="block text-xs text-stone-500">Subtotal</span>
+              <b id="variant-subtotal" class="text-xl font-extrabold text-brand-600">Rp0</b>
+            </div>
+          </div>
+          <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-brand-700">
+            Tambah ke keranjang
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="cart-overlay" data-overlay hidden class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-[2px] sm:items-center sm:p-4">
+    <section role="dialog" aria-modal="true" aria-labelledby="cart-title" class="modal-scroll relative w-full max-w-xl rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-3xl sm:p-7">
+      <button type="button" data-close="cart-overlay" aria-label="Tutup" class="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-stone-100 text-2xl text-stone-600">×</button>
+      <span class="text-[10px] font-bold uppercase tracking-[.18em] text-brand-600">Ringkasan pesanan</span>
+      <h2 id="cart-title" class="mt-1 pr-10 text-2xl font-extrabold text-stone-900">Keranjang kamu</h2>
+      <p class="mt-2 text-sm text-stone-500">Kamu masih bisa menambah, mengurangi, atau menghapus produk.</p>
+      <div id="cart-items" class="mt-3 divide-y divide-stone-100"></div>
+      <button id="add-more" type="button" class="mt-3 w-full rounded-xl border border-dashed border-brand-500 px-4 py-3 text-sm font-bold text-brand-600 hover:bg-brand-50">＋ Tambah menu lainnya</button>
+      <div class="mt-5 flex items-center justify-between border-t border-stone-200 pt-4"><span class="font-semibold text-stone-600">Total harga menu</span><b id="cart-total" class="text-2xl font-extrabold text-stone-900">Rp0</b></div>
+      <p class="mt-2 text-xs leading-5 text-stone-500">Ongkos kirim, jika ada, akan dikonfirmasi oleh admin.</p>
+      <button id="confirm-order" type="button" class="mt-5 w-full rounded-full bg-brand-500 px-5 py-4 font-extrabold text-white hover:bg-brand-700">Konfirmasi pesanan <span class="ml-1">→</span></button>
+    </section>
+  </div>
+
+  <div id="checkout-overlay" data-overlay hidden class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-[2px] sm:items-center sm:p-4">
+    <section role="dialog" aria-modal="true" aria-labelledby="checkout-title" class="modal-scroll relative w-full max-w-xl rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-3xl sm:p-7">
+      <button type="button" data-close="checkout-overlay" aria-label="Tutup" class="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-stone-100 text-2xl text-stone-600">×</button>
+      <span class="text-[10px] font-bold uppercase tracking-[.18em] text-brand-600">Langkah terakhir</span>
+      <h2 id="checkout-title" class="mt-1 pr-10 text-2xl font-extrabold text-stone-900">Detail pesanan</h2>
+      <p class="mt-2 text-sm text-stone-500">Isi data berikut sebelum melanjutkan ke WhatsApp admin.</p>
+      <div id="checkout-mini-summary" class="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-brand-50 p-4 text-sm text-maroon"></div>
+
+      <form id="checkout-form" class="mt-5 space-y-4">
+        <div>
+          <label for="customer-name" class="mb-1.5 block text-sm font-bold">Atas nama <span class="text-red-600">*</span></label>
+          <input id="customer-name" name="customerName" autocomplete="name" maxlength="80" required placeholder="Nama pemesan" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15">
+        </div>
+
+        <fieldset>
+          <legend class="mb-2 text-sm font-bold">Pilihan pengantaran <span class="text-red-600">*</span></legend>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input class="peer sr-only" type="radio" name="delivery" value="Ambil sendiri" checked>
+              <span class="block rounded-xl border border-stone-200 p-3 text-center text-sm peer-checked:border-brand-500 peer-checked:bg-brand-50">🏠 <b>Ambil sendiri</b></span>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" type="radio" name="delivery" value="Diantar (Gojek/kurir)">
+              <span class="block rounded-xl border border-stone-200 p-3 text-center text-sm peer-checked:border-brand-500 peer-checked:bg-brand-50">🛵 <b>Diantar</b></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div>
+          <span id="order-time-label" class="mb-2 block text-sm font-bold">Jam pengambilan / pengantaran <span class="text-red-600">*</span></span>
+          <input id="order-time" name="orderTime" type="hidden">
+          <div id="time-options" role="group" aria-labelledby="order-time-label"></div>
+
+          <p class="mt-4 text-[11px] font-bold uppercase tracking-[.15em] text-stone-400">Atau pilih jam lain</p>
+          <input id="order-time-custom" type="time" aria-label="Jam lain" class="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-lg font-semibold outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15">
+
+          <p id="time-summary" class="mt-2 text-xs text-stone-500">Waktu akan dikonfirmasi kembali oleh admin.</p>
+        </div>
+
+        <div id="address-field" hidden>
+          <label for="customer-address" class="mb-1.5 block text-sm font-bold">Alamat lengkap / sharelok <span class="text-red-600">*</span></label>
+          <textarea id="customer-address" name="address" rows="3" placeholder="Alamat, patokan, atau tautan Google Maps" class="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></textarea>
+        </div>
+
+        <div>
+          <label for="payment-method" class="mb-1.5 block text-sm font-bold">COD / TF <span class="text-red-600">*</span></label>
+          <select id="payment-method" name="payment" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15">
+            <option value="COD">COD / bayar saat menerima</option>
+            <option value="Transfer (TF)">Transfer (TF)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="order-notes" class="mb-1.5 block text-sm font-bold">Catatan tambahan (opsional)</label>
+          <textarea id="order-notes" name="notes" rows="2" maxlength="500" placeholder="Catatan untuk admin" class="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between rounded-2xl bg-stone-50 p-4">
+          <span class="font-semibold text-stone-600">Total menu</span>
+          <b id="final-total" class="text-xl font-extrabold text-stone-900">Rp0</b>
+        </div>
+
+        <p id="checkout-error" hidden class="rounded-xl bg-red-50 p-3 text-sm text-red-700"></p>
+
+        <button type="submit" class="w-full rounded-full bg-brand-500 px-5 py-4 font-extrabold text-white hover:bg-brand-700">Kirim pesanan ke WhatsApp ↗</button>
+        <p class="text-center text-xs leading-5 text-stone-500">WhatsApp terbuka dengan format pesanan yang sudah terisi. Tekan tombol kirim di WhatsApp untuk mengirim ke admin.</p>
+      </form>
+    </section>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden class="fixed bottom-24 left-1/2 z-[70] -translate-x-1/2 rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white shadow-xl"></div>
+
+  <footer class="border-t border-stone-200 bg-white px-4 py-6 text-center text-sm text-stone-500">
+    <b class="text-stone-700">🍕 Pizza Asrifriska</b>
+    <p class="mt-1 text-xs">Pesanan akan dikonfirmasi oleh admin melalui WhatsApp.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
